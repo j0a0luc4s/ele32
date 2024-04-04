@@ -43,8 +43,6 @@ using LaTeXStrings
                 [hammingv matrixv nocodev],
                 xscale=:log10,
                 yscale=:log10,
-                xticks=[],
-                yticks=[],
                 xflip=true,
                 xlabel="\$p\$",
                 ylabel="\$P_b\$",
@@ -53,6 +51,8 @@ using LaTeXStrings
                 left_margin=5Plots.mm,
                 dpi=400
             )
+            xticks!([0.1; 0.2; 0.5], ["0.1"; "0.2"; "0.5"]),
+            yticks!([0.1; 0.2; 0.5], ["0.1"; "0.2"; "0.5"]),
             display(plt)
             #savefig("plot.png")
 
