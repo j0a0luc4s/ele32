@@ -2,7 +2,6 @@ module MatrixCodes
 
 include("BinarySpaces.jl")
 using .BinarySpaces
-
 function encodeOne(u::BitVector)::BitVector
     @assert length(u) == 9 "u must have length 9"
     v = BitVector(undef, 15)
@@ -35,7 +34,7 @@ let
     end
 
     global decodeOne
-    function decodeOne(u::BitVector)
+    function decodeOne(u::BitVector)::BitVector
         @assert length(u) == 15 "u must have length 15"
         _, i = findmin(w -> BinarySpaces.distance(u, BitVector(w)), eachrow(allEncoded))
         v = deepcopy(allEncoded[i, 1:9])
@@ -43,7 +42,7 @@ let
     end
 end
 
-function decodeMany(u::BitVector)
+function decodeMany(u::BitVector)::BitVector
     @assert length(u) % 15 == 0 "u must have length multiple of 15"
     v = BitVector(undef, 9 * div(length(u), 15))
     for i = 1:div(length(u), 15)

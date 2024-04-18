@@ -32,7 +32,7 @@ let
     end
 
     global decodeOne
-    function decodeOne(u::BitVector)
+    function decodeOne(u::BitVector)::BitVector
         @assert length(u) == 7 "u must have length 7"
         _, i = findmin(w -> BinarySpaces.distance(u, BitVector(w)), eachrow(allEncoded))
         v = deepcopy(allEncoded[i, 1:4])
@@ -40,7 +40,7 @@ let
     end
 end
 
-function decodeMany(u::BitVector)
+function decodeMany(u::BitVector)::BitVector
     @assert length(u) % 7 == 0 "u must have length multiple of 7"
     v = BitVector(undef, 4 * div(length(u), 7))
     for i = 1:div(length(u), 7)
