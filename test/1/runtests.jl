@@ -54,7 +54,8 @@ using LaTeXStrings
             xticks!([0.1; 0.2; 0.5], ["0.1"; "0.2"; "0.5"]),
             yticks!([0.1; 0.2; 0.5], ["0.1"; "0.2"; "0.5"]),
             display(plt)
-            #savefig("1.png")
+            if !isdir("results") mkdir("results") end
+            savefig("results/1.png")
 
             p *= 0.9
         end
