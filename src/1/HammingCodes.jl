@@ -1,25 +1,24 @@
 module HammingCodes
 
 include("BinarySpaces.jl")
-using .BinarySpaces
 
-function encodeOne(u::BitVector)::BitVector
-    @assert length(u) == 4 "u must have length 4"
-    v = BitVector(undef, 7)
-    v[1:4] = u
-    v[5] = xor(u[1], u[2], u[4])
-    v[6] = xor(u[1], u[3], u[4])
-    v[7] = xor(u[2], u[3], u[4])
-    return v
+function encodeOne(in::BitVector)::BitVector
+    @assert length(in) == 4 "in must have length 4"
+    out = BitVector(undef, 7)
+    out[1:4] = in
+    out[5] = xor(in[1], in[2], in[4])
+    out[6] = xor(in[1], in[3], in[4])
+    out[7] = xor(in[2], in[3], in[4])
+    return out
 end
 
-function encodeMany(u::BitVector)::BitVector
-    @assert length(u) % 4 == 0 "u must have length multiple of 4"
-    v = BitVector(undef, 7 * div(length(u), 4))
-    for i = 1:div(length(u), 4)
-        v[7*(i-1)+1:7*i] = encodeOne(u[4*(i-1)+1:4*i])
+function encodeMany(in::BitVector)::BitVector
+    @assert length(in) % 4 == 0 "in must have length multiple of 4"
+    out = BitVector(undef, 7 * div(length(in), 4))
+    for i = 1:div(length(in), 4)
+        out[7*(i-1)+1:7*i] = encodeOne(in[4*(i-1)+1:4*i])
     end
-    return v
+    return out
 end
 
 function decodeOne end
@@ -32,21 +31,21 @@ let
     end
 
     global decodeOne
-    function decodeOne(u::BitVector)::BitVector
-        @assert length(u) == 7 "u must have length 7"
-        _, i = findmin(w -> BinarySpaces.distance(u, BitVector(w)), eachrow(allEncoded))
-        v = deepcopy(allEncoded[i, 1:4])
-        return v
+    function decodeOne(in::BitVector)::BitVector
+        @assert length(in) == 7 "in must have length 7"
+        _, i = findmin(el -> BinarySpaces.distance(in, BitVector(el)), eachrow(allEncoded))
+        out = deepcopy(allEncoded[i, 1:4])
+        return out
     end
 end
 
-function decodeMany(u::BitVector)::BitVector
-    @assert length(u) % 7 == 0 "u must have length multiple of 7"
-    v = BitVector(undef, 4 * div(length(u), 7))
-    for i = 1:div(length(u), 7)
-        v[4*(i-1)+1:4*i] = decodeOne(u[7*(i-1)+1:7*i])
+function decodeMany(in::BitVector)::BitVector
+    @assert length(in) % 7 == 0 "in must have length multiple of 7"
+    out = BitVector(undef, 4 * div(length(in), 7))
+    for i = 1:div(length(in), 7)
+        out[4*(i-1)+1:4*i] = decodeOne(in[7*(i-1)+1:7*i])
     end
-    return v
+    return out
 end
 
 end # module HammingCodes
