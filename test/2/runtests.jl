@@ -21,19 +21,19 @@ using LaTeXStrings
             original = BitVector(0 for _ in 1:576520)
             original_encoded = BitVector(0 for _ in 1:1008910)
 
-            hamming = ele32.Channels.binarySymmetric(original_encoded, p)
+            hamming = ele32.BinarySymmetricChannels.binarySymmetric(original_encoded, p)
             hamming = ele32.HammingCodes.decodeMany(hamming)
 
-            ldpc100 = ele32.Channels.binarySymmetric(original_encoded, p)
+            ldpc100 = ele32.BinarySymmetricChannels.binarySymmetric(original_encoded, p)
             ldpc100 = ele32.LDPCCodes.decodeMany(ldpc100g, ldpc100)
 
-            ldpc200 = ele32.Channels.binarySymmetric(original_encoded, p)
+            ldpc200 = ele32.BinarySymmetricChannels.binarySymmetric(original_encoded, p)
             ldpc200 = ele32.LDPCCodes.decodeMany(ldpc200g, ldpc200)
 
-            ldpc500 = ele32.Channels.binarySymmetric(original_encoded, p)
+            ldpc500 = ele32.BinarySymmetricChannels.binarySymmetric(original_encoded, p)
             ldpc500 = ele32.LDPCCodes.decodeMany(ldpc500g, ldpc500)
 
-            ldpc1000 = ele32.Channels.binarySymmetric(original_encoded, p)
+            ldpc1000 = ele32.BinarySymmetricChannels.binarySymmetric(original_encoded, p)
             ldpc1000 = ele32.LDPCCodes.decodeMany(ldpc1000g, ldpc1000)
 
             wrong_hamming = count(.==(false), hamming .== original)

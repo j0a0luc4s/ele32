@@ -14,14 +14,14 @@ using LaTeXStrings
             original = bitrand(1000008)
 
             hamming = ele32.HammingCodes.encodeMany(original)
-            hamming = ele32.Channels.binarySymmetric(hamming, p)
+            hamming = ele32.BinarySymmetricChannels.binarySymmetric(hamming, p)
             hamming = ele32.HammingCodes.decodeMany(hamming)
 
             matrix = ele32.MatrixCodes.encodeMany(original)
-            matrix = ele32.Channels.binarySymmetric(matrix, p)
+            matrix = ele32.BinarySymmetricChannels.binarySymmetric(matrix, p)
             matrix = ele32.MatrixCodes.decodeMany(matrix)
 
-            nocode = ele32.Channels.binarySymmetric(original, p)
+            nocode = ele32.BinarySymmetricChannels.binarySymmetric(original, p)
 
             wrong_hamming = count(.==(false), hamming .== original)
             wrong_matrix = count(.==(false), matrix .== original)
