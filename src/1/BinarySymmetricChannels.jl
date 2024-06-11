@@ -1,4 +1,4 @@
-module Channels
+module BinarySymmetricChannels
 
 using Random
 
@@ -12,4 +12,4 @@ function binarySymmetric(u::BitVector, p::Float64)::BitVector
     return v
 end
 
-end # module Channels
+end # module BinarySymmetricChannels

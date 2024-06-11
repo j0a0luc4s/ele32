@@ -1,4 +1,4 @@
 include("BinarySpaces.jl")
-include("Channels.jl")
+include("BinarySymmetricChannels.jl")
 include("MatrixCodes.jl")
 include("HammingCodes.jl")
